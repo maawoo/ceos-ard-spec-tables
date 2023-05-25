@@ -31,6 +31,9 @@ def truncate_and_ffill(df_dict):
         df = df.loc[first_row:last_row].dropna(how='all')
         df.iloc[:, 0].fillna(method='ffill', inplace=True)
         
+        # Convert first column elements to strings
+        df.iloc[:, 0] = df.iloc[:, 0].apply(lambda x: str(x))
+        
         # Replace empty strings with NaNs and save the modified DataFrame in the dictionary
         df.replace(r'^\s*$', np.NaN, regex=True, inplace=True)
         df_dict_copy[k] = df
