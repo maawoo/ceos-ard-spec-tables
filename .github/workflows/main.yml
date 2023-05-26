@@ -7,14 +7,14 @@ on:
 
 jobs:
   call-workflow-nrb:
-    uses: maawoo/ceos-ard-spec-tables/.github/workflows/auto_pr_spec.yml@main
+    uses: maawoo/ceos-ard-spec-tables/.github/workflows/get_asset.yml@main
     with:
       ceos_ard_spec: NRB
   call-workflow-orb:
-    uses: maawoo/ceos-ard-spec-tables/.github/workflows/auto_pr_spec.yml@main
+    uses: maawoo/ceos-ard-spec-tables/.github/workflows/get_asset.yml@main
     with:
       ceos_ard_spec: ORB
   call-workflow-pol:
-    uses: maawoo/ceos-ard-spec-tables/.github/workflows/auto_pr_spec.yml@main
+    uses: maawoo/ceos-ard-spec-tables/.github/workflows/get_asset.yml@main
     with:
       ceos_ard_spec: POL
