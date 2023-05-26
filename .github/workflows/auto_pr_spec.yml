@@ -1,0 +1,65 @@
+name: Reusable workflow to get CEOS-ARD specification metadata tables
+
+on:
+  workflow_call:
+    inputs:
+      ceos_ard_spec:
+        required: true
+        type: string
+
+jobs:
+  check_and_update_spec:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Convert input specification string to upper- and lowercase
+        id: spec_str
+        run: |
+          echo "::set-output name=upper::$(echo "${{ inputs.ceos_ard_spec }}" | tr '[:lower:]' '[:upper:]')"
+          echo "::set-output name=lower::$(echo "${{ inputs.ceos_ard_spec }}" | tr '[:upper:]' '[:lower:]')"
+
+      - name: Get directory and xlsx file of newest specification version
+        id: get_spec
+        run: |
+          directory_url="https://ceos.org/ard/files/PFS/${{ steps.spec_str.outputs.upper }}/?C=M;O=D"
+          version=$(curl -sL $directory_url | grep -o '<a href="[^"]*/">' | grep -o 'v[^/]*' | head -n 1)
+          directory=${directory_url/\?C=M;O=D/$version}
+          file_name=$(curl -sL $directory | grep -o '<a href="[^"]*.xlsx">' | sed 's/.*"\(.*\)".*/\1/')
+          echo "::set-output name=directory::$directory"
+          echo "::set-output name=file_name::$file_name"
+
+      - name: Check assets directory for existing xlsx file
+        id: check_exist
+        run: |
+          if [ -f "assets/${{ steps.spec_str.outputs.lower }}/${{ steps.get_spec.outputs.file_name }}" ]; then
+            echo "::set-output name=exists::true"
+          else
+            echo "::set-output name=exists::false"
+          fi
+
+      - name: Download if file does not exist
+        id: download_file
+        if: steps.check_exist.outputs.exists == 'false'
+        uses: suisei-cn/actions-download-file@v1.4.0
+        with:
+          url: ${{ steps.get_spec.outputs.directory }}/${{ steps.get_spec.outputs.file_name }}
+          target: assets/${{ steps.spec_str.outputs.lower }}
+
+      - name: Create pull request
+        if: steps.download_file.outputs.filename == steps.get_spec.outputs.file_name
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Adding `assets/${{ steps.spec_str.outputs.lower }}/${{ steps.get_spec.outputs.file_name }}"
+          title: "Add ${{ steps.get_spec.outputs.file_name }} to ${{ steps.spec_str.outputs.upper }} specification assets"
+          body: "A new version of the metadata table for the CEOS-ARD ${{ steps.spec_str.outputs.upper }} specification has been detected and will be added to the assets with this PR."
+          branch: "update-${{ steps.spec_str.outputs.lower }}-spec"
+          branch-suffix: timestamp
+          delete-branch: true
+          base: "main"
+          labels: "specification"
+          reviewers: "maawoo"
+          draft: false

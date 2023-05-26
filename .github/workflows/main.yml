@@ -1,0 +1,20 @@
+name: Check for new CEOS-ARD specification tables and update assets
+
+on:
+  schedule:
+    # run every week on Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+
+jobs:
+  call-workflow-nrb:
+    uses: maawoo/ceos-ard-spec-tables/.github/workflows/auto_pr_spec.yml@main
+    with:
+      ceos_ard_spec: NRB
+  call-workflow-orb:
+    uses: maawoo/ceos-ard-spec-tables/.github/workflows/auto_pr_spec.yml@main
+    with:
+      ceos_ard_spec: ORB
+  call-workflow-pol:
+    uses: maawoo/ceos-ard-spec-tables/.github/workflows/auto_pr_spec.yml@main
+    with:
+      ceos_ard_spec: POL
