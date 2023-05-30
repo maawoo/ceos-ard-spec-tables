@@ -1,11 +1,14 @@
-name: Workflow to get CEOS-ARD specification metadata tables
+name: get_asset
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       ceos_ard_spec:
         required: true
         type: string
+        description: 'CEOS-ARD specification to check for updates [nrb, orb, pol]'
+  #schedule:
+  #  - cron: '0 6 * * 1' # run every week on Monday at 06:00 UTC
 
 jobs:
   check_and_update_spec:
