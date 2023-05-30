@@ -25,9 +25,9 @@ jobs:
         id: get_spec
         run: |
           directory_url="https://ceos.org/ard/files/PFS/${{ steps.spec_str.outputs.upper }}/?C=M;O=D"
-          version=$(curl -vsL $directory_url | grep -o '<a href="[^"]*/">' | grep -o 'v[^/]*' | head -n 1)
+          version=$(curl -sL $directory_url | grep -o '<a href="[^"]*/">' | grep -o 'v[^/]*' | head -n 1)
           directory=${directory_url/\?C=M;O=D/$version}
-          file_name=$(curl -vsL $directory | grep -o '<a href="[^"]*.xlsx">' | sed 's/.*"\(.*\)".*/\1/')
+          file_name=$(curl -sL $directory | grep -o '<a href="[^"]*.xlsx">' | sed 's/.*"\(.*\)".*/\1/')
           echo "directory=$directory" >> $GITHUB_OUTPUT
           echo "file_name=$file_name" >> $GITHUB_OUTPUT
 
