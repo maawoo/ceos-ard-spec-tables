@@ -21,17 +21,24 @@ def truncate_and_ffill(df_dict):
     for k in list(df_dict_copy.keys()):
         df = df_dict_copy[k]
         
-        # Get first row that is not NaN in the first column
-        first_row = df[df.iloc[:, 0].notna()].index[0]
+        # Get first valid index in column 0 (skip first row, which is the header)
+        first_row = df.iloc[1:, 0].first_valid_index()
         
-        # Get row before the last all-NaN row in the df. Otherwise, we might lose information for the last item.
-        last_row = df[df.isna().all(axis=1)].tail(1).index[0] - 1
+        # Get last valid index in column 0 and check for all-NaN rows after that index
+        last_idx = df.iloc[:, 0].last_valid_index()
+        if any(df.iloc[last_idx:, :].isna().all(axis=1)):
+            # Get row before the last all-NaN row in the df. Otherwise, we might lose information for the last item.
+            # Example: assets/CARD4L_METADATA-spec_NRB-v5.5.xlsx comments in the end of sheet 'General Metadata'!
+            last_row = df[df.isna().all(axis=1)].tail(1).index[0] - 1
+        else:
+            last_row = df.index[-1]
         
-        # Truncate and forward fill NaNs in the first column
+        # Truncate and drop all-NaN rows
+        #print(sum(df.isna().all(axis=1)))
         df = df.loc[first_row:last_row].dropna(how='all')
-        df.iloc[:, 0].fillna(method='ffill', inplace=True)
         
-        # Convert first column elements to strings
+        # Forward fill NaNs in the first column and convert elements to strings
+        df.iloc[:, 0].fillna(method='ffill', inplace=True)
         df.iloc[:, 0] = df.iloc[:, 0].apply(lambda x: str(x))
         
         # Replace empty strings with NaNs and save the modified DataFrame in the dictionary
