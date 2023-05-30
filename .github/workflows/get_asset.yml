@@ -7,6 +7,11 @@ on:
         required: true
         type: string
         description: 'CEOS-ARD specification to check for updates [nrb, orb, pol]'
+      debug:
+        description: 'Debug using upterm session?'
+        required: false
+        default: false
+        type: boolean
   #schedule:
   #  - cron: '0 6 * * 1' # run every week on Monday at 06:00 UTC
 
@@ -66,3 +71,10 @@ jobs:
           labels: "specification"
           reviewers: "maawoo"
           draft: false
+
+      - name: Debug upterm session
+        uses: lhotari/action-upterm@v1
+        if: ${{ inputs.debug }} == 'true'
+        with:
+          limit-access-to-actor: true
+          limit-access-to-users: maawoo
