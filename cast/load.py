@@ -1,33 +1,98 @@
-import pandas as pd
 from pathlib import Path
+import pandas as pd
+
+from cast.convert import convert_card_df_dict
 
 
-def load_card_xlsx(path, sheet_name=None, header=None, names=None):
+class CARDMeta(object):
     """
-    Load specific sheets of a CEOS-ARD Specification xlsx file into a dictionary of pandas DataFrames.
+    Load CEOS-ARD Specification xlsx file into a dictionary of pandas DataFrames.
     
     Parameters
     ----------
     path : str or Path
         Path to the Excel file.
-    sheet_name : str or list of str, optional
+    sheet_names : str or list of str, optional
         Name of the sheet(s) to load. If None, load all sheets. Default is ['General Metadata', 'Per-Pixel Metadata',
         'Radiometric Corrections', 'Geometric Corrections'].
     header : int, optional
         Row number to use as the column names. Default is 2.
-    names : list of str, optional
-        List of column names. Default is ['item', 'item_name', 'threshold_req', 'target_req', 'item_attr', 'type'].
+    column_names : list of str, optional
+        List of column names to use. Default is ['item', 'item_name', 'threshold_req', 'target_req', 'item_attr', 'type'].
     
-    Returns
-    -------
-    dict of pandas.DataFrame
-        Dictionary of pandas DataFrames.
+    Attributes
+    ----------
+    file : Path
+        Path to the Excel file.
+    sheets : list of str
+        Name of the sheet(s) to load.
+    columns : list of str
+        List of column names to use.
+    raw : dict of pandas.DataFrame
+        Dictionary of pandas DataFrames. Raw data from the Excel file.
+    data : dict of pandas.DataFrame
+        Dictionary of pandas DataFrames. Raw data converted to a workable format.
+        
+    Examples
+    --------
+    >>> from pathlib import Path
+    >>> from cast.load import CARDMeta
+    >>>
+    >>> file_dir = Path("./assets")
+    >>> xlsx_nrb = file_dir.joinpath("nrb", "CARD4L_METADATA-spec_NRB-v5.0.xlsx")
+    >>> nrb = CARDMeta(file_path=xlsx_nrb)
+    >>> nrb.data['General Metadata']
     """
-    if sheet_name is None:
-        sheet_name = ['General Metadata', 'Per-Pixel Metadata', 'Radiometric Corrections', 'Geometric Corrections']
-    if header is None:
-        header = 2
-    if names is None:
-        names = ['item', 'item_name', 'threshold_req', 'target_req', 'item_attr', 'type']
+    def __init__(self, file_path, sheet_names=None, header=None, column_names=None):
+        if not file_path.is_file():
+            raise FileNotFoundError(f"File not found: {file_path}")
+        if sheet_names is None:
+            sheet_names = ['General Metadata', 'Per-Pixel Metadata', 'Radiometric Corrections', 'Geometric Corrections']
+        if header is None:
+            header = 2
+        if column_names is None:
+            column_names = ['item', 'item_name', 'threshold_req', 'target_req', 'item_attr', 'type']
+        
+        self.file = file_path
+        self.sheets = sheet_names
+        self.columns = column_names
+        self.__header = header
+        
+        self.raw = self.load_xlsx()
+        self.data = self.convert()
     
-    return pd.read_excel(path, sheet_name=sheet_name, header=header, names=names)
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+    
+    def close(self):
+        del self.data
+    
+    def load_xlsx(self):
+        """
+        Load CEOS-ARD Specification xlsx file into a dictionary of pandas DataFrames.
+        
+        Returns
+        -------
+        dict of pandas.DataFrame
+            Dictionary of pandas DataFrames.
+        """
+        return pd.read_excel(self.file, sheet_name=self.sheets, header=self.__header, names=self.columns)
+    
+    def convert(self):
+        """
+        Convert a dictionary of DataFrames containing CEOS-ARD metadata into a workable format.
+        
+        Parameters
+        ----------
+        df_dict : dict of pandas.DataFrame
+            Dictionary of pandas DataFrames.
+        
+        Returns
+        -------
+        dict of pandas.DataFrame
+            Dictionary of converted DataFrames.
+        """
+        return convert_card_df_dict(df_dict=self.raw)
