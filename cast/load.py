@@ -10,7 +10,7 @@ class CARDMeta(object):
     
     Parameters
     ----------
-    path : str or Path
+    file_path : str or pathlib.Path
         Path to the Excel file.
     sheet_names : str or list of str, optional
         Name of the sheet(s) to load. If None, load all sheets. Default is ['General Metadata', 'Per-Pixel Metadata',
@@ -22,12 +22,6 @@ class CARDMeta(object):
     
     Attributes
     ----------
-    file : Path
-        Path to the Excel file.
-    sheets : list of str
-        Name of the sheet(s) to load.
-    columns : list of str
-        List of column names to use.
     raw : dict of pandas.DataFrame
         Dictionary of pandas DataFrames. Raw data from the Excel file.
     data : dict of pandas.DataFrame
@@ -101,11 +95,6 @@ class CARDMeta(object):
     def convert(self):
         """
         Convert a dictionary of DataFrames containing CEOS-ARD metadata into a workable format.
-        
-        Parameters
-        ----------
-        df_dict : dict of pandas.DataFrame
-            Dictionary of pandas DataFrames.
         
         Returns
         -------
