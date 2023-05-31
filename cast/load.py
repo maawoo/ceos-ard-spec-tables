@@ -1,4 +1,4 @@
-from pathlib import Path
+import re
 import pandas as pd
 
 from cast.convert import convert_card_df_dict
@@ -32,7 +32,9 @@ class CARDMeta(object):
         Dictionary of pandas DataFrames. Raw data from the Excel file.
     data : dict of pandas.DataFrame
         Dictionary of pandas DataFrames. Raw data converted to a workable format.
-        
+    spec : str
+        Specification abbreviation and version.
+    
     Examples
     --------
     >>> from pathlib import Path
@@ -60,6 +62,7 @@ class CARDMeta(object):
         
         self.raw = self.load_xlsx()
         self.data = self.convert()
+        self.spec = self.get_spec_and_version()
     
     def __enter__(self):
         return self
@@ -69,6 +72,20 @@ class CARDMeta(object):
     
     def close(self):
         del self.data
+    
+    def get_spec_and_version(self):
+        """
+        Get specification abbreviation and version number from file path.
+        
+        Returns
+        -------
+        str
+            The spec and version number of the file.
+        """
+        spec = self.file.parent.stem.upper()
+        version = re.search(r'v\d\.\d{1,2}', self.file.name).group(0)
+        
+        return f"{spec}{version}"
     
     def load_xlsx(self):
         """
