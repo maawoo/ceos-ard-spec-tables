@@ -1,4 +1,5 @@
 from pathlib import Path
+import copy
 import pandas as pd
 
 OUT_DIR = Path.cwd().joinpath('reports')
@@ -25,8 +26,8 @@ def same_item_names_diff_vals(card_1, card_2, out_dir=None):
     if out_dir is None:
         out_dir = OUT_DIR
     
-    df_dict_1 = card_1.data
-    df_dict_2 = card_2.data
+    df_dict_1 = copy.deepcopy(card_1.data)
+    df_dict_2 = copy.deepcopy(card_2.data)
     spec1 = card_1.spec
     spec2 = card_2.spec
     
