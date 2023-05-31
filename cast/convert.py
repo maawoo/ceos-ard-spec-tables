@@ -48,49 +48,55 @@ def truncate_and_ffill(df_dict):
     return df_dict_copy
 
 
-def _remove_first_elem_per_row(df):
+def _remove_first_elem_per_row(df, col_start=None):
     """
-    This function iterates over the rows of a DataFrame and for columns 2 - 5 (here: 'threshold_req', 'target_req',
-    'item_attr' and 'type') it removes the first element of each list if len(list)>1 and if all first elements are NaN.
-
+    Iterate over rows and first checks that elements in columns starting from index `col_start` are consistent
+    (same type and length). If consistent, it removes the first element of each tuple if len(tuple)>1 and if all first
+    elements are NaN.
+    
     Parameters
     ----------
     df : pandas.DataFrame
         DataFrame containing the tables.
-
+    col_start : int, optional
+        Column index to truncate from. The default is 0, which means that no columns are truncated.
+    
     Returns
     -------
     pandas.DataFrame
         Modified DataFrame.
     """
+    if col_start is None:
+        col_start = 0
+    
     n_rows = df.shape[0]
     for i in range(n_rows):
-        # Get columns 2-5 of each row
-        row = df.iloc[i, 2:6]
+        row = df.iloc[i, col_start:]
         
-        # Check that all elements in each row are lists
-        if not all(row.apply(lambda x: isinstance(x, list))):
-            raise ValueError(f"Row {i} (item {df.iloc[i, 0]}) contains non-list elements.")
-            # or continue?
+        # Check that all elements are of the same type (tuple)
+        if not all(row.apply(lambda x: isinstance(x, tuple))):
+            raise ValueError(f"Row {i} (item {df.iloc[i, 0]}) contains non-tuple elements.")
         
-        # Check that lists in each row are of the same length
+        # Check that tuples in each row are of the same length
         lengths = row.apply(lambda x: len(x))
         if len(set(lengths)) > 1:
-            raise ValueError(f"Lists in {i} (item {df.iloc[i, 0]}) have different lengths.")
+            raise ValueError(f"Tuples in row {i} (item {df.iloc[i, 0]}) have different lengths.")
         
-        # columns 2-5: Remove the first element of each list (len > 1) if all first elements in the row are NaN
+        # Remove the first element of each tuple if len > 1 and if all first elements in the row are NaN
         if all(lengths > 1):
             first_elem_nan = all([pd.isna(elem[0]) for elem in row])
             if first_elem_nan:
-                df.iloc[i, 2:6] = row.apply(lambda x: x[1:])
+                df.iloc[i, col_start:] = row.apply(lambda x: x[1:])
     
     return df
 
 
 def compress_structure(df_dict):
     """
-    Compress the structure of each DataFrame in the dictionary by grouping the table by item column and aggregating
-    the rest of the columns into lists. Then, remove the first element of each list (len > 1) if all first elements in
+    Compress the structure of each DataFrame in the dictionary by grouping the table by `item` column and aggregating
+    the rest of the columns into tuples. Then, two cleanup steps are performed:
+    1. Only the first element of items in column `item_name` are kept.
+    2. Subsequent columns are cleaned up by removing the first element of each tuple if len > 1 and if all first elements in
     the row are NaN.
     
     Parameters
@@ -108,14 +114,17 @@ def compress_structure(df_dict):
     for k in list(df_dict_copy.keys()):
         df = df_dict_copy[k]
         
-        # Group the table by item column and aggregate the rest of the columns into lists
-        df_grouped = df.groupby('item').agg(lambda x: x.tolist()).reset_index()
+        col_item_name = df.columns.get_loc('item_name')
+        col_start = col_item_name + 1
+        if not col_item_name == 1:
+            raise ValueError(f"Column 'item_name' is not at index 1 in DataFrame {k}.")
         
-        # column 1: Only keep the first element of the list
-        df_grouped.iloc[:, 1] = df_grouped.iloc[:, 1].apply(lambda x: x[0] if x[0] else None)
+        # Group the table by item column and aggregate the rest of the columns into tuples
+        df_grouped = df.groupby('item').agg(lambda x: tuple(x)).reset_index()
         
-        # columns 2-5: Remove the first element of each list (len > 1) if all first elements in the row are NaN
-        df_grouped = _remove_first_elem_per_row(df=df_grouped)
+        # Cleanup
+        df_grouped.iloc[:, col_item_name] = df_grouped.iloc[:, col_item_name].apply(lambda x: x[0] if x[0] else None)
+        df_grouped = _remove_first_elem_per_row(df=df_grouped, col_start=col_start)
         
         df_dict_copy[k] = df_grouped
     
