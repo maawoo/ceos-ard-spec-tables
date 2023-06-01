@@ -53,7 +53,7 @@ def same_item_names_diff_vals(cast_1, cast_2, out_dir=None):
                                                  keep_shape=True, keep_equal=True, result_names=(spec1, spec2))
         
         # find and drop duplicate rows
-        dups = compare_common.reset_index().iloc[:, 2:].duplicated(keep=False)
+        dups = compare_common.reset_index().duplicated(subset=compare_common.columns[2:], keep=False)
         compare_common.drop(compare_common.index[dups], inplace=True)
         
         # Reset index so spec is included as a column, then set index back to 'item'
