@@ -1,4 +1,4 @@
-name: card_env
+name: cast_env
 channels:
   - conda-forge
 dependencies:

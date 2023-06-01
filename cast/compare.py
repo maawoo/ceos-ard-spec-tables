@@ -5,16 +5,16 @@ import pandas as pd
 OUT_DIR = Path.cwd().joinpath('reports')
 
 
-def same_item_names_diff_vals(card_1, card_2, out_dir=None):
+def same_item_names_diff_vals(cast_1, cast_2, out_dir=None):
     """
-    Compare two CARDMeta objects and find all rows that have the same item name but different values.
+    Compare two CASTMeta objects and find all rows that have the same item name but different values.
     
     Parameters
     ----------
-    card_1 : CARDMeta
-        First CARDMeta object to compare.
-    card_2  : CARDMeta
-        Second CARDMeta object to compare.
+    cast_1 : CASTMeta
+        First CASTMeta object to compare.
+    cast_2  : CASTMeta
+        Second CASTMeta object to compare.
     out_dir : Path, optional
         Path to directory where output files will be saved. If not provided, defaults to 'reports' directory.
     
@@ -26,10 +26,10 @@ def same_item_names_diff_vals(card_1, card_2, out_dir=None):
     if out_dir is None:
         out_dir = OUT_DIR
     
-    df_dict_1 = copy.deepcopy(card_1.data)
-    df_dict_2 = copy.deepcopy(card_2.data)
-    spec1 = card_1.spec
-    spec2 = card_2.spec
+    df_dict_1 = copy.deepcopy(cast_1.data)
+    df_dict_2 = copy.deepcopy(cast_2.data)
+    spec1 = cast_1.spec
+    spec2 = cast_2.spec
     
     # check that both df_dicts have same keys
     key_diff = set(df_dict_1.keys()).symmetric_difference(set(df_dict_2.keys()))

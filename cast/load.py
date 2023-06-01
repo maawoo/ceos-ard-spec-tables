@@ -1,12 +1,12 @@
 import re
 import pandas as pd
 
-from cast.convert import convert_card_df_dict
+from cast.convert import convert_cast_df_dict
 
 
-class CARDMeta(object):
+class CASTMeta(object):
     """
-    Load CEOS-ARD Specification xlsx file into a dictionary of pandas DataFrames.
+    Load CEOS-ARD Specification Table xlsx file into a dictionary of pandas DataFrames.
     
     Parameters
     ----------
@@ -32,11 +32,11 @@ class CARDMeta(object):
     Examples
     --------
     >>> from pathlib import Path
-    >>> from cast.load import CARDMeta
+    >>> from cast.load import CASTMeta
     >>>
     >>> file_dir = Path("./assets")
     >>> xlsx_nrb = file_dir.joinpath("nrb", "CARD4L_METADATA-spec_NRB-v5.0.xlsx")
-    >>> nrb = CARDMeta(file_path=xlsx_nrb)
+    >>> nrb = CASTMeta(file_path=xlsx_nrb)
     >>> nrb.data['General Metadata']
     """
     def __init__(self, file_path, sheet_names=None, header=None, column_names=None):
@@ -101,4 +101,4 @@ class CARDMeta(object):
         dict of pandas.DataFrame
             Dictionary of converted DataFrames.
         """
-        return convert_card_df_dict(df_dict=self.raw)
+        return convert_cast_df_dict(df_dict=self.raw)

@@ -131,7 +131,7 @@ def compress_structure(df_dict):
     return df_dict_copy
 
 
-def convert_card_df_dict(df_dict):
+def convert_cast_df_dict(df_dict):
     """
     Convert a dictionary of DataFrames containing CEOS-ARD metadata into a workable format.
     
