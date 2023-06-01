@@ -57,9 +57,8 @@ def same_item_names_diff_vals(card_1, card_2, out_dir=None):
         compare_common.drop(compare_common.index[dups], inplace=True)
         
         # Reset index so spec is included as a column, then set index back to 'item'
-        compare_common.reset_index(inplace=True)
+        compare_common.reset_index(level=1, inplace=True)
         compare_common.rename(columns={"level_1": "spec"}, inplace=True)
-        compare_common.set_index('item', inplace=True)
         
         compare_dict[k] = compare_common
     
