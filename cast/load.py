@@ -79,7 +79,7 @@ class CARDMeta(object):
         spec = self.file.parent.stem.upper()
         version = re.search(r'v\d\.\d{1,2}', self.file.name).group(0)
         
-        return f"{spec}{version}"
+        return f"{spec}-{version}"
     
     def load_xlsx(self):
         """
