@@ -62,10 +62,14 @@ def same_item_names_diff_vals(card_1, card_2, out_dir=None):
         
         compare_dict[k] = compare_common
     
-    # create xlsx from dict of dfs using key as the sheet name
-    with pd.ExcelWriter(out_dir.joinpath(f"same_item_names_diff_vals__{spec1}_{spec2}.xlsx")) as writer:
-        for k in list(compare_dict.keys()):
-            compare_dict[k].to_excel(writer, sheet_name=k)
+    with open(out_dir.joinpath(f"{spec1}_{spec2}__same_item_names_diff_vals.csv"), 'w') as f:
+        i = 0
+        header = True
+        for key, df in compare_dict.items():
+            if i > 0:
+                header = False
+            df.to_csv(f, header=header)
+            i += 1
     
     return compare_dict
 
