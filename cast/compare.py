@@ -46,21 +46,35 @@ def same_item_names_diff_vals(cast_1, cast_2, out_dir=None):
         df2.set_index('item_name', inplace=True)
         
         # find common rows based on index
-        common = df1.index.intersection(df2.index)
+        common_idx = df1.index.intersection(df2.index)
         
-        # compare the values of the common rows
-        compare_common = df1.loc[common].compare(df2.loc[common], align_axis=0,
-                                                 keep_shape=True, keep_equal=True, result_names=(spec1, spec2))
+        # compare values of the common rows. `item` column is treated separately to be inserted back later on
+        compare_item_col = df1.loc[common_idx, df1.columns[:1]].compare(df2.loc[common_idx, df2.columns[:1]],
+                                                                        align_axis=0,
+                                                                        keep_shape=True,
+                                                                        keep_equal=True,
+                                                                        result_names=(spec1, spec2))
+        compare_main = df1.loc[common_idx, df1.columns[1:]].compare(df2.loc[common_idx, df2.columns[1:]],
+                                                                    align_axis=0,
+                                                                    keep_shape=True,
+                                                                    keep_equal=False,
+                                                                    result_names=(spec1, spec2))
         
-        # find and drop duplicate rows
-        dups = compare_common.reset_index().duplicated(subset=compare_common.columns[2:], keep=False)
-        compare_common.drop(compare_common.index[dups], inplace=True)
+        if not all(compare_item_col.index == compare_main.index):
+            raise ValueError("Indices of compare_item_col and compare_main are not the same!")
         
-        # Reset index so spec is included as a column, then set index back to 'item'
-        compare_common.reset_index(level=1, inplace=True)
-        compare_common.rename(columns={"level_1": "spec"}, inplace=True)
+        # re-insert column 'item' as first column in compare_main
+        compare_main.insert(0, 'item', compare_item_col)
         
-        compare_dict[k] = compare_common
+        # find and drop duplicate row-pairs
+        dups = compare_main.reset_index().duplicated(subset=compare_main.columns[2:], keep=False)
+        compare_main.drop(compare_main.index[dups], inplace=True)
+        
+        # Reset index so spec is included as a column
+        compare_main.reset_index(level=1, inplace=True)
+        compare_main.rename(columns={"level_1": "spec"}, inplace=True)
+        
+        compare_dict[k] = compare_main
     
     with open(out_dir.joinpath(f"{spec1}_{spec2}__same_item_names_diff_vals.csv"), 'w') as f:
         i = 0
