@@ -127,7 +127,7 @@ def compress_structure(df_dict):
         # Cleanup
         df_grouped.iloc[:, col_item_name] = df_grouped.iloc[:, col_item_name].apply(lambda x: x[0] if x[0] else None)
         df_grouped = _remove_first_elem_per_row(df=df_grouped, col_start=col_start)
-        df_grouped.iloc[:, col_start:].apply(lambda x: [s.strip() if isinstance(s, str) else s for s in x])
+        df_grouped = df_grouped.applymap(lambda x: x if not isinstance(x, tuple) else tuple([s.strip() if isinstance(s, str) else s for s in x]))
         
         df_dict_copy[k] = df_grouped
     
