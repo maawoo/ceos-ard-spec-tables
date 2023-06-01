@@ -94,10 +94,11 @@ def _remove_first_elem_per_row(df, col_start=None):
 def compress_structure(df_dict):
     """
     Compress the structure of each DataFrame in the dictionary by grouping the table by `item` column and aggregating
-    the rest of the columns into tuples. Then, two cleanup steps are performed:
+    the rest of the columns into tuples. Then, three cleanup steps are performed:
     1. Only the first element of items in column `item_name` are kept.
     2. Subsequent columns are cleaned up by removing the first element of each tuple if len > 1 and if all first elements in
     the row are NaN.
+    3. Strip whitespace from all strings in each tuple.
     
     Parameters
     ----------
@@ -125,6 +126,7 @@ def compress_structure(df_dict):
         # Cleanup
         df_grouped.iloc[:, col_item_name] = df_grouped.iloc[:, col_item_name].apply(lambda x: x[0] if x[0] else None)
         df_grouped = _remove_first_elem_per_row(df=df_grouped, col_start=col_start)
+        df_grouped.iloc[:, col_start:].apply(lambda x: [s.strip() if isinstance(s, str) else s for s in x])
         
         df_dict_copy[k] = df_grouped
     
