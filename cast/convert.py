@@ -1,3 +1,4 @@
+import copy
 import pandas as pd
 import numpy as np
 
@@ -16,7 +17,7 @@ def truncate_and_ffill(df_dict):
     dict of pandas.DataFrame
         Dictionary of truncated and forward filled DataFrames.
     """
-    df_dict_copy = df_dict.copy()
+    df_dict_copy = copy.deepcopy(df_dict)
     
     for k in list(df_dict_copy.keys()):
         df = df_dict_copy[k]
@@ -110,7 +111,7 @@ def compress_structure(df_dict):
     dict of pandas.DataFrame
         Dictionary of compressed DataFrames.
     """
-    df_dict_copy = df_dict.copy()
+    df_dict_copy = copy.deepcopy(df_dict)
     
     for k in list(df_dict_copy.keys()):
         df = df_dict_copy[k]
@@ -147,7 +148,7 @@ def convert_cast_df_dict(df_dict):
     dict of pandas.DataFrame
         Dictionary of converted DataFrames.
     """
-    df_dict_copy = df_dict.copy()
+    df_dict_copy = copy.deepcopy(df_dict)
     
     df_dict_copy_t = truncate_and_ffill(df_dict=df_dict_copy)
     df_dict_copy_t_c = compress_structure(df_dict=df_dict_copy_t)
