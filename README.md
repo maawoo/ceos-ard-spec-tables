@@ -27,11 +27,11 @@ nrb_55.data
 
 ### Create reports by comparing different objects
 ```python
-from cast.compare import same_item_names_diff_vals
+import cast.compare as compare
 
 # Compare CASTMeta objects: Different versions of the same specification
-compare_nrb = same_item_names_diff_vals(cast_1=nrb_50, cast_2=nrb_55)
+compare_nrb = compare.by_item_names(cast_1=nrb_50, cast_2=nrb_55)
 
 # Compare CASTMeta objects: Different specifications
-compare_nrb_orb = same_item_names_diff_vals(cast_1=nrb_55, cast_2=orb_10)
+compare_nrb_orb = compare.by_item_names(cast_1=nrb_55, cast_2=orb_10)
 ```

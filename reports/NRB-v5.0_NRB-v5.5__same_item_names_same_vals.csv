@@ -1,0 +1,33 @@
+item_name,spec,item
+Traceability,NRB-v5.0,1.1
+Traceability,NRB-v5.5,1.1
+Metadata machine readability,NRB-v5.0,1.2
+Metadata machine readability,NRB-v5.5,1.2
+Data collection time,NRB-v5.0,1.5
+Data collection time,NRB-v5.5,1.5
+Source Attributes,NRB-v5.0,1.6
+Source Attributes,NRB-v5.5,1.6
+Source Data Polarimetric Calibration Matrices,NRB-v5.0,1.6.10
+Source Data Polarimetric Calibration Matrices,NRB-v5.5,1.6.10
+Ionosphere indicator,NRB-v5.0,1.6.12
+Ionosphere indicator,NRB-v5.5,1.6.12
+Source Data Acquisition time,NRB-v5.0,1.6.3
+Source Data Acquisition time,NRB-v5.5,1.6.3
+Filtering,NRB-v5.0,1.7.4
+Filtering,NRB-v5.5,1.7.4
+Pixel Coordinate Convention,NRB-v5.0,1.7.8
+Pixel Coordinate Convention,NRB-v5.5,1.7.8
+Metadata machine readability,NRB-v5.0,2.1
+Metadata machine readability,NRB-v5.5,2.1
+Data Mask Image,NRB-v5.0,2.2
+Data Mask Image,NRB-v5.5,2.2
+Local Incident Angle Image,NRB-v5.0,2.4
+Local Incident Angle Image,NRB-v5.5,2.4
+Ellipsoidal Incident Angle Image,NRB-v5.0,2.5
+Ellipsoidal Incident Angle Image,NRB-v5.5,2.5
+Noise Power Image,NRB-v5.0,2.6
+Noise Power Image,NRB-v5.5,2.6
+Gamma-to- Sigma Ratio,NRB-v5.0,2.7
+Gamma-to- Sigma Ratio,NRB-v5.5,2.7
+Noise removal,NRB-v5.0,3.3
+Noise removal,NRB-v5.5,3.3

@@ -1,0 +1,59 @@
+item_name,spec,item
+Traceability,NRB-v5.5,1.1
+Traceability,ORB-v1.0,1.1
+Metadata machine readability,NRB-v5.5,1.2
+Metadata machine readability,ORB-v1.0,1.2
+Document Identifier,NRB-v5.5,1.4
+Document Identifier,ORB-v1.0,1.4
+Data collection time,NRB-v5.5,1.5
+Data collection time,ORB-v1.0,1.5
+Source Attributes,NRB-v5.5,1.6
+Source Attributes,ORB-v1.0,1.6
+Source Data Access,NRB-v5.5,1.6.1
+Source Data Access,ORB-v1.0,1.6.1
+Source Data Polarimetric Calibration Matrices,NRB-v5.5,1.6.10
+Source Data Polarimetric Calibration Matrices,ORB-v1.0,1.6.10
+Mean Faraday Rotation angle,NRB-v5.5,1.6.11
+Mean Faraday Rotation angle,ORB-v1.0,1.6.11
+Ionosphere indicator,NRB-v5.5,1.6.12
+Ionosphere indicator,ORB-v1.0,1.6.12
+Instrument,NRB-v5.5,1.6.2
+Instrument,ORB-v1.0,1.6.2
+Source Data Acquisition time,NRB-v5.5,1.6.3
+Source Data Acquisition time,ORB-v1.0,1.6.3
+Source Data Acquisition Parameters,NRB-v5.5,1.6.4
+Source Data Acquisition Parameters,ORB-v1.0,1.6.4
+Source Data Orbit information,NRB-v5.5,1.6.5
+Source Data Orbit information,ORB-v1.0,1.6.5
+Source data Processing parameters,NRB-v5.5,1.6.6
+Source data Processing parameters,ORB-v1.0,1.6.6
+Source Data Image Attributes,NRB-v5.5,1.6.7
+Source Data Image Attributes,ORB-v1.0,1.6.7
+Sensor calibration,NRB-v5.5,1.6.8
+Sensor calibration,ORB-v1.0,1.6.8
+Product Data Access,NRB-v5.5,1.7.1
+Product Data Access,ORB-v1.0,1.7.1
+Ancillary data,NRB-v5.5,1.7.2
+Ancillary data,ORB-v1.0,1.7.2
+Product Sample Spacing,NRB-v5.5,1.7.3
+Product Sample Spacing,ORB-v1.0,1.7.3
+Product Bounding Box,NRB-v5.5,1.7.5
+Product Bounding Box,ORB-v1.0,1.7.7
+Product Image Extent,NRB-v5.5,1.7.6
+Product Image Extent,ORB-v1.0,1.7.8
+Product Image Size,NRB-v5.5,1.7.7
+Product Image Size,ORB-v1.0,1.7.9
+Pixel Coordinate Convention,NRB-v5.5,1.7.8
+Pixel Coordinate Convention,ORB-v1.0,1.7.10
+Coordinate reference system,NRB-v5.5,1.7.9
+Coordinate reference system,ORB-v1.0,1.7.11
+Metadata machine readability,NRB-v5.5,2.1
+Metadata machine readability,ORB-v1.0,2.1
+Acquisition ID Image   ,NRB-v5.5,2.8
+Acquisition ID Image   ,ORB-v1.0,2.5
+Noise removal,NRB-v5.5,3.3
+Noise removal,ORB-v1.0,3.2
+Geometric Accuracy,NRB-v5.5,4.3
+Geometric Accuracy,ORB-v1.0,4.3
+Gridding Convention,NRB-v5.5,4.4
+Gridding Convention,ORB-v1.0,4.4
