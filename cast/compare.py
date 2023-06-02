@@ -65,10 +65,9 @@ def same_item_names_diff_vals(cast_1, cast_2, out_dir=None):
         
         # re-insert column 'item' as first column in compare_main
         compare_main.insert(0, 'item', compare_item_col)
-        compare_main.reset_index(inplace=True)
         
         # find and drop duplicate row-pairs
-        dups = compare_main.duplicated(subset=compare_main.columns[2:], keep=False)
+        dups = compare_main.duplicated(subset=compare_main.columns[1:], keep=False)
         compare_main.drop(compare_main.index[dups], inplace=True)
         
         # Reset index so spec is included as a column
