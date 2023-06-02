@@ -36,7 +36,7 @@ def by_item_names(cast_1, cast_2, out_dir=None):
     if len(key_diff) > 0:
         raise ValueError(f"Both dicts must have the same keys. Found differences: {key_diff}")
     
-    compare_dict = {}
+    compare_dict = {'same_same': [], 'same_diff': []}
     for k in list(df_dict_1.keys()):
         df1 = df_dict_1[k]
         df2 = df_dict_2[k]
@@ -79,7 +79,8 @@ def by_item_names(cast_1, cast_2, out_dir=None):
         compare_same_same.rename(columns={"level_1": "spec"}, inplace=True)
         compare_same_same.dropna(axis=1, how='all', inplace=True)
         
-        compare_dict[k] = compare_same_diff
+        compare_dict['same_same'].append(compare_same_same)
+        compare_dict['same_diff'].append(compare_same_diff)
     
     with open(out_dir.joinpath(f"{spec1}_{spec2}__same_item_names_diff_vals.csv"), 'w') as f:
         i = 0
