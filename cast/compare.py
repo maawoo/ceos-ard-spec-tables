@@ -31,12 +31,18 @@ def by_item_names(cast_1, cast_2, out_dir=None):
     if len(key_diff) > 0:
         raise ValueError(f"Both dicts must have the same keys. Found differences: {key_diff}")
     
-    compare_dict = {'same_same': [], 'same_diff': []}
+    compare_dict = {'same_same': [], 'same_diff': [], 'only_1': [], 'only_2': []}
     for k in list(df_dict_1.keys()):
         df1 = df_dict_1[k]
         df2 = df_dict_2[k]
         df1.set_index('item_name', inplace=True)
         df2.set_index('item_name', inplace=True)
+        
+        # find rows that are only in df1 and df2
+        only_1_idx = df1.index.difference(df2.index)
+        only_1 = df1.loc[only_1_idx, df1.columns[:1]]
+        only_2_idx = df2.index.difference(df1.index)
+        only_2 = df2.loc[only_2_idx, df2.columns[:1]]
         
         # find common rows based on index
         common_idx = df1.index.intersection(df2.index)
@@ -76,6 +82,8 @@ def by_item_names(cast_1, cast_2, out_dir=None):
         
         compare_dict['same_same'].append(compare_same_same)
         compare_dict['same_diff'].append(compare_same_diff)
+        compare_dict['only_1'].append(only_1)
+        compare_dict['only_2'].append(only_2)
     
     if out_dir is not None and Path(out_dir).exists():
         _export_to_csv(compare_dict, out_dir, spec1, spec2)
@@ -87,6 +95,10 @@ def _export_to_csv(compare_dict, out_dir, spec1, spec2):
     for k in compare_dict.keys():
         if k.startswith('same'):
             name = f"{k.split('_')[0]}_item_names_{k.split('_')[1]}_vals"
+        elif k == 'only_1':
+            name = f"item_names_only_in_{spec1}"
+        elif k == 'only_2':
+            name = f"item_names_only_in_{spec2}"
         else:
             name = k
         
