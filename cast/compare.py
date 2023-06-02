@@ -85,9 +85,19 @@ def by_item_names(cast_1, cast_2, out_dir=None):
         compare_dict['only_1'].append(only_1)
         compare_dict['only_2'].append(only_2)
     
+    compare_dict = _concat_df_lists(compare_dict)
+    
     if out_dir is not None and Path(out_dir).exists():
         _export_to_csv(compare_dict, out_dir, spec1, spec2)
     return compare_dict
+
+
+def _concat_df_lists(compare_dict):
+    """Helper function to merge the lists of dataframes in compare_dict into one dataframe per key."""
+    merged = {}
+    for k in compare_dict.keys():
+        merged[k] = pd.concat(compare_dict[k], axis=0)
+    return merged
 
 
 def _export_to_csv(compare_dict, out_dir, spec1, spec2):
@@ -102,12 +112,5 @@ def _export_to_csv(compare_dict, out_dir, spec1, spec2):
         else:
             name = k
         
-        df_list = compare_dict[k]
         with open(out_dir.joinpath(f"{spec1}_{spec2}__{name}.csv"), 'w') as f:
-            i = 0
-            header = True
-            for df in df_list:
-                if i > 0:
-                    header = False
-                df.to_csv(f, header=header)
-                i += 1
+            compare_dict[k].to_csv(f)
