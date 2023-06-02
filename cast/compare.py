@@ -2,8 +2,6 @@ from pathlib import Path
 import copy
 import pandas as pd
 
-OUT_DIR = Path.cwd().joinpath('reports')
-
 
 def by_item_names(cast_1, cast_2, out_dir=None):
     """
@@ -16,16 +14,13 @@ def by_item_names(cast_1, cast_2, out_dir=None):
     cast_2  : CASTMeta
         Second CASTMeta object to compare.
     out_dir : Path, optional
-        Path to directory where output files will be saved. If not provided, defaults to 'reports' directory.
+        Path to directory where output files will be saved. If not provided, no csv files will be saved.
     
     Returns
     -------
     compare_dict : dict
         Dictionary of dataframes containing the rows that have the same item name but different values.
     """
-    if out_dir is None:
-        out_dir = OUT_DIR
-    
     df_dict_1 = copy.deepcopy(cast_1.data)
     df_dict_2 = copy.deepcopy(cast_2.data)
     spec1 = cast_1.spec
@@ -82,7 +77,8 @@ def by_item_names(cast_1, cast_2, out_dir=None):
         compare_dict['same_same'].append(compare_same_same)
         compare_dict['same_diff'].append(compare_same_diff)
     
-    _export_to_csv(compare_dict, out_dir, spec1, spec2)
+    if out_dir is not None and Path(out_dir).exists():
+        _export_to_csv(compare_dict, out_dir, spec1, spec2)
     return compare_dict
 
 
