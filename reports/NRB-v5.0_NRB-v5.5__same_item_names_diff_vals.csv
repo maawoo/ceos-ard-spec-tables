@@ -3,12 +3,20 @@ Product type,NRB-v5.0,1.3,,,"('type=""Normalized Radar Backscatter""', 'Copyrigh
 Product type,NRB-v5.5,1.3,,,"('type=""Normalised Radar Backscatter"",  version=""5.5"" *', 'Copyright=” ”')",
 Document Identifier,NRB-v5.0,1.4,,,"(nan,)","('String [”CARD4L-NRB v4.7”]',)"
 Document Identifier,NRB-v5.5,1.4,,,"('type=[”DOI”, “URL”]',)","('String',)"
+Data collection time,NRB-v5.0,1.5,"('<DataCollectionTime>', '<NumberOfAcquisitions>', '<FirstAcquistionDate>', '<LastAcquistitionDate>')",,,
+Data collection time,NRB-v5.5,1.5,"('<DataCollectionTime>', '<NumberOfAcquisitions>', '<FirstAcquisitionDate>', '<LastAcquisitionDate>')",,,
+Source Attributes,NRB-v5.0,1.6,"('<SourceAttributes>>',)",,,
+Source Attributes,NRB-v5.5,1.6,"('<SourceAttributes>',)",,,
 Source Data Access,NRB-v5.0,1.6.1,,,"('type=”DOI” or “URL”',)",
 Source Data Access,NRB-v5.5,1.6.1,,,"('type=[”DOI”, “URL”]',)",
 Mean Faraday Rotation angle,NRB-v5.0,1.6.11,,,"('units=”deg”', 'type=”DOI”')",
 Mean Faraday Rotation angle,NRB-v5.5,1.6.11,,,"('units=”deg”', 'type=[”DOI”, “URL”]')",
-Instrument,NRB-v5.0,1.6.2,"('<Satellite>', '<Instrument >')","(nan, nan)","(nan, nan)","('String', 'String')"
+Instrument,NRB-v5.0,1.6.2,"('<Satellite>', '<Instrument>')","(nan, nan)","(nan, nan)","('String', 'String')"
 Instrument,NRB-v5.5,1.6.2,"('<Satellite>', '<Instrument>', nan)","(nan, nan, '<SatelliteReference>')","(nan, nan, 'type=[”DOI”, “URL”]')","('String', 'String', 'String')"
+Source Data Acquisition time,NRB-v5.0,1.6.3,"('<SourceDataAcquistionTime>', '<StartTime>', '<EndTime>', nan)",,,
+Source Data Acquisition time,NRB-v5.5,1.6.3,"('<SourceDataAcquisitionTime>', '<StartTime>', '<EndTime>', nan)",,,
+Source Data Acquisition Parameters,NRB-v5.0,1.6.4,"('<AcquisitionParameters>', '<RadarBand>', '<RadarCenterFrequency>', '<ObservationMode>', '<Polarizations>', '<AntennaPointing>', '<BeamID>')",,,
+Source Data Acquisition Parameters,NRB-v5.5,1.6.4,"('<SourceDataAcquisitionParameters>', '<RadarBand>', '<RadarCenterFrequency>', '<ObservationMode>', '<Polarizations>', '<AntennaPointing>', '<BeamID>')",,,
 Source Data Orbit information,NRB-v5.0,1.6.5,"('<OrbitInformation >', '<PassDirection >', '<OrbitDataSource>', nan, nan, nan)","(nan, nan, nan, '<PlatformHeading>', '<OrbitDataFile>', '<OrbitMeanAltitude>')","(nan, nan, nan, 'units = “deg”', nan, 'units = “m”')","(nan, 'String [Ascending, Descending]', 'String [Predicted, Definitive, Downlinked ]', 'Float', 'String', 'Float')"
 Source Data Orbit information,NRB-v5.5,1.6.5,"('<OrbitInformation >', '<PassDirection >', '<OrbitDataSource>', nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan)","(nan, nan, nan, '<OrbitDataFileName>', '<ReferenceFrame>', '<StateVector> **', '<TimeStamp>', '<xPosition>', '<yPosition>', '<zPosition>', '<xVelocity>', '<yVelocity>', '<zVelocity>', '<PlatformHeading>', '<OrbitMeanAltitude>')","(nan, nan, nan, nan, nan, nan, nan, 'units=”m”', 'units=”m”', 'units=”m”', 'units=”m/s”', 'units=”m/s”', 'units=”m/s”', 'units = “deg”', 'units = “m”')","(nan, 'String [Ascending, Descending]', 'String [ex.: Predicted, Downlinked, Precise, Restituted, ... ]', 'String', 'String  [Earth-Centered Earth-Fixed,  Geocentric Equatorial Inertial , …]', nan, 'utcDate String', 'Float', 'Float', 'Float', 'Float', 'Float', 'Float', 'Float', 'Float')"
 Source data Processing parameters,NRB-v5.0,1.6.6,"('<SourceProcParam>', '<ProcessingFacility>', '<ProcessingDate>', '<SoftwareVersion>', '<ProductID>', '<ProductLevel>', '<AzumuthNumberOfLooks>', nan, '<RangeNumberOfLooks>', nan, nan)","(nan, nan, nan, nan, nan, nan, nan, '<RangeLookBandwidth>', nan, '<AzimuthLookBandwidth>', '<lutApplied>')","(nan, nan, nan, nan, nan, nan, 'subSwathID=[1, 2, 3, …]', 'units=”Hz”', 'subSwathID=[1, 2, 3, …]', 'units=”Hz”', nan)","(nan, 'String', 'utcDate String', 'String', 'String', 'String [SLC, GRD,..]', 'Integer', 'Float', 'Integer', 'Float', 'String')"
@@ -25,6 +33,8 @@ Ancillary data,NRB-v5.0,1.7.2,"('<AncillaryData>',)","(nan,)","('type=”URL” 
 Ancillary data,NRB-v5.5,1.7.2,"(nan,)","('<AncillaryData>',)","('type=[”DOI”, “URL”] or other attribute categories',)",
 Product Sample Spacing,NRB-v5.0,1.7.3,,,"(nan, nan, nan)","(nan, 'Integer', 'Integer')"
 Product Sample Spacing,NRB-v5.5,1.7.3,,,"(nan, 'units=[”m”, ""deg"", ""arcsec""]', 'units=[”m”, ""deg"", ""arcsec""]')","(nan, 'Float', 'Float')"
+Product Image Size,NRB-v5.0,1.7.7,"('<ProductImageSize>', '<NumberLines>', '<NumPixelsPerLine>', '<HeaderSize>', '<NumBorderPixels>')",,,
+Product Image Size,NRB-v5.5,1.7.7,"('<ProductImageSize>', '<NumberLines>', '<NumPixelsPerLine>', '<HeaderSize> *****', '<NumBorderPixels> *****')",,,
 Coordinate reference system,NRB-v5.0,1.7.9,"('<CoordinateReferenceSystem>',)","(nan,)","(nan,)","('String [WGS84, NAD83, …]',)"
 Coordinate reference system,NRB-v5.5,1.7.9,"('<CoordinateReferenceSystem> ******', '<CoordinateReferenceSystem> ******')","(nan, nan)","('type=""EPSG""', 'type=[""WKT"" or ”PROJ4”, or other standard format]')","('Integer', 'String')"
 Scattering Area Image,NRB-v5.0,2.3,"('<LocalContributingArea>', '<FileName>', '<SampleType>', '<DataFormat>', '<DataType>', '<BitsPerSample>', '<ByteOrder>')","(nan, nan, nan, nan, nan, nan, nan)","(nan, nan, 'units=”square_meters”', nan, nan, nan, nan)","(nan, 'String', 'String   [Scattering Area]', 'String [Raw, geotiff, vrt, …]', 'String   [Byte, UINT, INT, Float, …]', 'Integer   [1, 8, 16, 32, …]', 'String   [Big Endian, Little Endian]')"
