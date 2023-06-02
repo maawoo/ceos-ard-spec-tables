@@ -49,10 +49,12 @@ Coordinate reference system,NRB-v5.5,1.7.9
 Coordinate reference system,ORB-v1.0,1.7.11
 Metadata machine readability,NRB-v5.5,2.1
 Metadata machine readability,ORB-v1.0,2.1
-Acquisition ID Image   ,NRB-v5.5,2.8
-Acquisition ID Image   ,ORB-v1.0,2.5
+Acquisition ID Image,NRB-v5.5,2.8
+Acquisition ID Image,ORB-v1.0,2.5
 Noise removal,NRB-v5.5,3.3
 Noise removal,ORB-v1.0,3.2
+Radiometric Accuracy,NRB-v5.5,3.5
+Radiometric Accuracy,ORB-v1.0,3.3
 Geometric Accuracy,NRB-v5.5,4.3
 Geometric Accuracy,ORB-v1.0,4.3
 Gridding Convention,NRB-v5.5,4.4

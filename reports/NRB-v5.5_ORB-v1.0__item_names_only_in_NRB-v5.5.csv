@@ -4,9 +4,8 @@ Filtering,NRB-v5.5,1.7.4
 Ellipsoidal Incident Angle Image,NRB-v5.5,2.5
 Gamma-to- Sigma Ratio,NRB-v5.5,2.7
 Local Incident Angle Image,NRB-v5.5,2.4
-Per-Pixel DEM   ,NRB-v5.5,2.9
+Per-Pixel DEM,NRB-v5.5,2.9
 Scattering Area Image,NRB-v5.5,2.3
-Backscatter                          Conversion ,NRB-v5.5,3.2
-Radiometric Accuracy,NRB-v5.5,3.5
+Backscatter Conversion ,NRB-v5.5,3.2
 Radiometric Terrain Corrections Algorithms,NRB-v5.5,3.4
 Digital Elevation Model,NRB-v5.5,4.2
