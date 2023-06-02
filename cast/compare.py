@@ -5,7 +5,12 @@ import pandas as pd
 
 def by_item_names(cast_1, cast_2, out_dir=None):
     """
-    Compare two CASTMeta objects and find all rows that have the same item name but different values.
+    Compares the `data` attribute of two CASTMeta objects.
+    For each `pandas.Dataframe` the following comparisons are made based on column `item_name`. The parentheses indicate
+    the key in the returned dictionary:
+    - rows that have the same item name and same values ('same_same')
+    - rows that have the same item name but different values ('same_diff')
+    - rows that are only in one of the CASTMeta objects ('only_1', 'only_2')
     
     Parameters
     ----------
@@ -19,7 +24,8 @@ def by_item_names(cast_1, cast_2, out_dir=None):
     Returns
     -------
     compare_dict : dict
-        Dictionary of dataframes containing the rows that have the same item name but different values.
+        Dictionary with keys 'same_same', 'same_diff', 'only_1', 'only_2' and corresponding values being
+        pandas.DataFrames containing the comparison results.
     """
     df_dict_1 = copy.deepcopy(cast_1.data)
     df_dict_2 = copy.deepcopy(cast_2.data)
