@@ -1,12 +1,12 @@
-item_name,item
-CARD4L Product Attributes,1.7
-Filtering,1.7.4
-Ellipsoidal Incident Angle Image,2.5
-Gamma-to- Sigma Ratio,2.7
-Local Incident Angle Image,2.4
-Per-Pixel DEM   ,2.9
-Scattering Area Image,2.3
-Backscatter                          Conversion ,3.2
-Radiometric Accuracy,3.5
-Radiometric Terrain Corrections Algorithms,3.4
-Digital Elevation Model,4.2
+item_name,spec,item
+CARD4L Product Attributes,NRB-v5.5,1.7
+Filtering,NRB-v5.5,1.7.4
+Ellipsoidal Incident Angle Image,NRB-v5.5,2.5
+Gamma-to- Sigma Ratio,NRB-v5.5,2.7
+Local Incident Angle Image,NRB-v5.5,2.4
+Per-Pixel DEM   ,NRB-v5.5,2.9
+Scattering Area Image,NRB-v5.5,2.3
+Backscatter                          Conversion ,NRB-v5.5,3.2
+Radiometric Accuracy,NRB-v5.5,3.5
+Radiometric Terrain Corrections Algorithms,NRB-v5.5,3.4
+Digital Elevation Model,NRB-v5.5,4.2

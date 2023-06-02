@@ -47,8 +47,10 @@ def by_item_names(cast_1, cast_2, out_dir=None):
         # find rows that are only in df1 and df2
         only_1_idx = df1.index.difference(df2.index)
         only_1 = df1.loc[only_1_idx, df1.columns[:1]]
+        only_1.insert(0, 'spec', spec1)
         only_2_idx = df2.index.difference(df1.index)
         only_2 = df2.loc[only_2_idx, df2.columns[:1]]
+        only_2.insert(0, 'spec', spec2)
         
         # find common rows based on index
         common_idx = df1.index.intersection(df2.index)
