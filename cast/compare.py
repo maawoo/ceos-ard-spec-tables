@@ -48,10 +48,10 @@ def by_item_names(cast_1, cast_2, out_dir=None):
                                                                         keep_equal=True,
                                                                         result_names=(spec1, spec2))
         compare_same_diff = df1.loc[common_idx, df1.columns[1:]].compare(df2.loc[common_idx, df2.columns[1:]],
-                                                                    align_axis=0,
-                                                                    keep_shape=True,
-                                                                    keep_equal=False,
-                                                                    result_names=(spec1, spec2))
+                                                                         align_axis=0,
+                                                                         keep_shape=True,
+                                                                         keep_equal=False,
+                                                                         result_names=(spec1, spec2))
         
         if not all(compare_item_col.index == compare_same_diff.index):
             raise ValueError("Indices of compare_item_col and compare_main are not the same!")
