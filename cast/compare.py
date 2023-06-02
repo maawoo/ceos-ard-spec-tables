@@ -82,14 +82,24 @@ def by_item_names(cast_1, cast_2, out_dir=None):
         compare_dict['same_same'].append(compare_same_same)
         compare_dict['same_diff'].append(compare_same_diff)
     
-    with open(out_dir.joinpath(f"{spec1}_{spec2}__same_item_names_diff_vals.csv"), 'w') as f:
-        i = 0
-        header = True
-        for key, df in compare_dict.items():
-            if i > 0:
-                header = False
-            df.to_csv(f, header=header)
-            i += 1
-    
+    _export_to_csv(compare_dict, out_dir, spec1, spec2)
     return compare_dict
 
+
+def _export_to_csv(compare_dict, out_dir, spec1, spec2):
+    """Helper function to export dataframes in compare_dict to csv files."""
+    for k in compare_dict.keys():
+        if k.startswith('same'):
+            name = f"{k.split('_')[0]}_item_names_{k.split('_')[1]}_vals"
+        else:
+            name = k
+        
+        df_list = compare_dict[k]
+        with open(out_dir.joinpath(f"{spec1}_{spec2}__{name}.csv"), 'w') as f:
+            i = 0
+            header = True
+            for df in df_list:
+                if i > 0:
+                    header = False
+                df.to_csv(f, header=header)
+                i += 1
