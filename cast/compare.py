@@ -5,7 +5,7 @@ import pandas as pd
 OUT_DIR = Path.cwd().joinpath('reports')
 
 
-def same_item_names_diff_vals(cast_1, cast_2, out_dir=None):
+def by_item_names(cast_1, cast_2, out_dir=None):
     """
     Compare two CASTMeta objects and find all rows that have the same item name but different values.
     
